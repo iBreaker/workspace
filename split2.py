@@ -11,6 +11,7 @@ import scapy.all
 import dpkt
 
 def makeQuadruple(pcapDir, outDir):
+    count = 0
     result = os.popen("tshark -r " + pcapDir + " -R \"udp\" -Tfields -e ip.addr -e udp.port")
     dic = {}
     for i in result.readlines():
@@ -30,6 +31,7 @@ def makeQuadruple(pcapDir, outDir):
             port1, port2 = port2, port1
         quadruple = ('UDP', ip1, port1, ip2, port2)
         dic[quadruple] = outDir + '/' + "UDP-" + ip1 + ":" + str(port1) + "-" + ip2 + ":" + str(port2) + ".pcap"
+        count = count + 1
         print dic[quadruple]
 
     #print dic
@@ -52,6 +54,7 @@ def makeQuadruple(pcapDir, outDir):
             port1, port2 = port2, port1
         quadruple = ('TCP', ip1, port1, ip2, port2)
         dic[quadruple] = outDir + '/' + "TCP-" + ip1 + ":" + str(port1) + "-" + ip2 + ":" + str(port2) + ".pcap"
+        count = count + 1
         print dic[quadruple]
     return dic
 
@@ -120,48 +123,30 @@ class SplitWorker(object):
                 #print "herehaskey"
                 if src_key in tupKeys:
                     print "src_key in keys" ,src_key
-                    if the_result_writer.has_key(self.tupleNameDict[src_key]):
-                        the_result_writer[self.tupleNameDict[src_key]].writepkt(pkt)  
-                        
-                    else:
-                        afile = open(self.tupleNameDict[src_key],"w")
-                        the_result_writer[self.tupleNameDict[src_key]] = dpkt.pcap.Writer(afile) 
-                        the_result_writer[self.tupleNameDict[src_key]].writepkt(pkt)  
+                    pktdump = scapy.all.PcapWriter(self.tupleNameDict[src_key] , append=True, sync=True)
+                    pktdump.write(pkt)
+                    pktdump.close()
                     continue
                     
                 if src_reverse_key in tupKeys:
                     print "src_reverse_key in keys" ,src_reverse_key                    
-                    if the_result_writer.has_key(self.tupleNameDict[src_reverse_key]):
-                        the_result_writer[self.tupleNameDict[src_reverse_key]].writepkt(pkt)  
-                        
-                    else:
-                        afile = open(self.tupleNameDict[src_reverse_key],"w")
-                        the_result_writer[self.tupleNameDict[src_reverse_key]] = dpkt.pcap.Writer(afile) 
-                        the_result_writer[self.tupleNameDict[src_reverse_key]].writepkt(pkt)  
-                        
+                    pktdump = scapy.all.PcapWriter(self.tupleNameDict[src_reverse_key] , append=True, sync=True)
+                    pktdump.write(pkt)
+                    pktdump.close()
                     continue
                 
                 if ip_src_key in tupKeys:
-                    print "ip_src_key in keys" ,src_key
-                    if the_result_writer.has_key(self.tupleNameDict[ip_src_key]):
-                        the_result_writer[self.tupleNameDict[ip_src_key]].writepkt(pkt)  
-                        
-                    else:
-                        afile = open(self.tupleNameDict[ip_src_key],"w")
-                        the_result_writer[self.tupleNameDict[ip_src_key]] = dpkt.pcap.Writer(afile) 
-                        the_result_writer[self.tupleNameDict[ip_src_key]].writepkt(pkt)  
+                    print "ip_src_key in keys" ,ip_src_key
+                    pktdump = scapy.all.PcapWriter(self.tupleNameDict[ip_src_key] , append=True, sync=True)
+                    pktdump.write(pkt)
+                    pktdump.close()
                     continue
-                    
+
                 if ip_src_reverse_key in tupKeys:
-                    print "ip_src_reverse_key in keys" ,src_reverse_key                    
-                    if the_result_writer.has_key(self.tupleNameDict[ip_src_reverse_key]):
-                        the_result_writer[self.tupleNameDict[ip_src_reverse_key]].writepkt(pkt)  
-                        
-                    else:
-                        afile = open(self.tupleNameDict[ip_src_reverse_key],"w")
-                        the_result_writer[self.tupleNameDict[ip_src_reverse_key]] = dpkt.pcap.Writer(afile) 
-                        the_result_writer[self.tupleNameDict[ip_src_reverse_key]].writepkt(pkt)  
-                        
+                    print "ip_src_reverse_key in keys" ,ip_src_reverse_key                    
+                    pktdump = scapy.all.PcapWriter(self.tupleNameDict[ip_src_reverse_key] , append=True, sync=True)
+                    pktdump.write(pkt)
+                    pktdump.close()
                     continue
         
         
