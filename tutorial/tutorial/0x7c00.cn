@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="zh-CN" class="lt-ie9 lt-ie8 lt-ie7 ie6"> <![endif]-->
+<!--[if IE 7]>         <html lang="zh-CN" class="lt-ie9 lt-ie8 ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="zh-CN" class="lt-ie9 ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="zh-CN"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<title>Breaker&#039;s Blog | 作为意志和表象的世界</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<link rel="shortcut icon" href="http://shumeipai.nxez.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://0x7c00.cn/apple-touch-icon-precomposed.png" />
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://0x7c00.cn/xmlrpc.php" />
+
+<meta name="keywords" content="黑客,开发者,程序员,自制操作系统,树莓派" />
+<meta name="description" content="" />
+
+<!--[if lt IE 9]><script src="http://0x7c00.cn/wp-content/themes/minty/js/vendor/html5shiv.min.js"></script><![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Breaker&#039;s Blog &raquo; Feed" href="http://0x7c00.cn/?feed=rss2" />
+<link rel="alternate" type="application/rss+xml" title="Breaker&#039;s Blog &raquo; 评论Feed" href="http://0x7c00.cn/?feed=comments-rss2" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/0x7c00.cn\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.2"}};
+			!function(a,b,c){function d(a){var c,d=b.createElement("canvas"),e=d.getContext&&d.getContext("2d"),f=String.fromCharCode;return e&&e.fillText?(e.textBaseline="top",e.font="600 32px Arial","flag"===a?(e.fillText(f(55356,56806,55356,56826),0,0),d.toDataURL().length>3e3):"diversity"===a?(e.fillText(f(55356,57221),0,0),c=e.getImageData(16,16,1,1).data.toString(),e.fillText(f(55356,57221,55356,57343),0,0),c!==e.getImageData(16,16,1,1).data.toString()):("simple"===a?e.fillText(f(55357,56835),0,0):e.fillText(f(55356,57135),0,0),0!==e.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='minty-style-css'  href='http://0x7c00.cn/wp-content/themes/minty/style.css?ver=4.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='minty-style-customize-css'  href='http://0x7c00.cn/wp-content/themes/minty/theme-css.php?ver=4.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wpcirrus-cloudStyle-css'  href='http://0x7c00.cn/wp-content/plugins/wp-cirrus/cirrusCloud.css?ver=0.6.11' type='text/css' media='all' />
+<script type='text/javascript' src='http://0x7c00.cn/wp-content/plugins/wp-cirrus/wp_cirrus_gwt/wp_cirrus_gwt.nocache.js?ver=0.6.11'></script>
+<script type='text/javascript' src='http://0x7c00.cn/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://0x7c00.cn/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel='https://api.w.org/' href='http://0x7c00.cn/?rest_route=/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://0x7c00.cn/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://0x7c00.cn/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.4.2" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ededed; }
+</style>
+
+
+</head>
+
+<body class="home blog custom-background" itemscope itemtype="http://schema.org/WebPage">
+	<header id="header" role="banner" itemscope itemtype="http://schema.org/WPHeader">
+				<a id="hgroup" href="http://0x7c00.cn/" rel="home">
+			<h1 id="logo">Breaker&#039;s Blog</h1>
+						<i class="slogan" title="返回首页" style="width:10em">作为意志和表象的世界</i>
+		</a>
+
+		<a class="screen-reader-text skip-link" href="#main">跳至内容</a>
+
+				<div class="userinfo">
+			<a href="http://0x7c00.cn/wp-login.php?redirect_to=http%3A%2F%2F0x7c00.cn%2F%3Fp%3D165"></a><a href="http://0x7c00.cn/wp-login.php">登录</a>		</div>
+		
+		<div class="connect">
+						
+			
+			<a target="_blank" href="http://blog.0x7c00.cn/?feed=rss2" class="rss" title="RSS"><span>RSS</span></a>			
+<form role="search" method="get" id="searchform" action="http://0x7c00.cn/">
+	<input type="search" placeholder="搜索…" value="" name="s" id="s" title="搜索" required x-moz-errormessage="请输入搜索关键字" />
+	<input type="submit" id="searchsubmit" value="搜索" />
+</form>		</div>
+
+		<nav id="nav" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+			<ul id="menu-menu" class="nav-menu"><li id="menu-item-90" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90"><a href="http://blog.0x7c00.cn">Home</a></li>
+<li id="menu-item-92" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-92"><a href="http://0x7c00.cn/?cat=9">Coding</a>
+<ul class="sub-menu">
+	<li id="menu-item-175" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-175"><a href="http://0x7c00.cn/?cat=47">Python</a></li>
+	<li id="menu-item-178" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-178"><a href="http://0x7c00.cn/?cat=50">Linux</a></li>
+</ul>
+</li>
+<li id="menu-item-93" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-93"><a href="http://0x7c00.cn/?cat=7">Hacking</a></li>
+<li id="menu-item-94" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-94"><a href="http://0x7c00.cn/?cat=8">Project</a>
+<ul class="sub-menu">
+	<li id="menu-item-107" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-107"><a href="http://0x7c00.cn/?cat=11">Operating System</a></li>
+</ul>
+</li>
+<li id="menu-item-100" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-100"><a href="http://0x7c00.cn/?cat=10">Other</a></li>
+<li id="menu-item-104" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-104"><a href="http://0x7c00.cn/?page_id=101">Links</a></li>
+</ul>		</nav>
+
+		<div id="m-btns">
+			<div class="menu" title="菜单">
+				<select id="m-menu" onchange="location.href=this.value"><option disabled selected>导航菜单</option><option value="http://blog.0x7c00.cn">Home</option>
+<optgroup label="Coding">
+	<option value="http://0x7c00.cn/?cat=47">Python</option>
+	<option value="http://0x7c00.cn/?cat=50">Linux</option>
+</optgroup>
+
+<option value="http://0x7c00.cn/?cat=7">Hacking</option>
+<optgroup label="Project">
+	<option value="http://0x7c00.cn/?cat=11">Operating System</option>
+</optgroup>
+
+<option value="http://0x7c00.cn/?cat=10">Other</option>
+<option value="http://0x7c00.cn/?page_id=101">Links</option>
+</select>			</div>
+			<span class="search" title="搜索"></span>
+			<a class="tqq" title="微博" target="_blank" href=""></a>		</div>
+	</header>
+
+	<!--[if lt IE 8]><div id="browsehappy">你正在使用的浏览器版本过低，请<a href="http://browsehappy.com/"><strong>升级你的浏览器</strong></a>，获得最佳的浏览体验！</div><![endif]-->
+
+	<div id="container" class="clearfix">
+
+		
+        
+	<main id="main" class="hfeed" role="main" itemscope itemtype="http://schema.org/Blog">
+
+		
+		
+										
+<article id="post-165" class="post-165 post type-post status-publish format-standard sticky hentry category-hacking tag-backtrack tag-breaker tag-bt5 tag-metasploit tag-meterpreter tag-netcat tag-41" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=165" rel="bookmark">利用Metasploit进行渗透测试</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2012-04-11T11:35:53+00:00" pubdate itemprop="datePublished">2012-04-11</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=7" rel="category">Hacking</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=165#comments" class="comments-link" >14 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=165"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/142604587507.jpg" itemprop="image" width="700" alt="利用Metasploit进行渗透测试" lazyload="1" /></a>
+			<p>声明：本教程仅限供广大网络安全爱好者交流学习之用，任何人不得用于非法用途，否则后果自负。 最近在玩Backtrack 5 ，就把最近学到的东西分享下。 所有工具都是Backtrack 5 自带的， 用到的工具 ： 大名鼎鼎的Metasploit Feamwork    还有 Netcat</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=165" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=backtrack" rel="tag">Backtrack</a><a href="http://0x7c00.cn/?tag=breaker" rel="tag">Breaker</a><a href="http://0x7c00.cn/?tag=bt5" rel="tag">BT5</a><a href="http://0x7c00.cn/?tag=metasploit" rel="tag">Metasploit</a><a href="http://0x7c00.cn/?tag=meterpreter" rel="tag">meterpreter</a><a href="http://0x7c00.cn/?tag=netcat" rel="tag">Netcat</a><a href="http://0x7c00.cn/?tag=%e6%bc%8f%e6%b4%9e" rel="tag">漏洞</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-229" class="post-229 post type-post status-publish format-standard hentry category-other" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=229" rel="bookmark">推荐chrome插件vimium</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2016-03-03T11:51:53+00:00" pubdate itemprop="datePublished">2016-03-03</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=10" rel="category">Other</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=229#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=229"><img src="http://ccwyy.img47.wal8.com/img47/507648_20150116191603/145697643883.png" itemprop="image" width="700" alt="推荐chrome插件vimium" lazyload="1" /></a>
+			<p>对于用惯了vim的人来说，能用vim的快捷键来浏览网页控制浏览器是一件很爽的事情。今天发现了了一个chrome的插件vimium让你彻底脱离鼠标，用键盘控制你的浏览器。试了下，要做一些其它复杂的操作（比如说注册帐号什么的）还是不得不用到鼠标，像阅读文章，文档，刷知乎，coding神马的纯键盘操作还是很舒服的。 vimi</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=229" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+							</footer>
+	
+	</article>
+											
+<article id="post-218" class="post-218 post type-post status-publish format-standard hentry category-coding category-linux" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=218" rel="bookmark">Linux 段错误调试</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2015-09-22T17:39:12+00:00" pubdate itemprop="datePublished">2015-09-22</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=9" rel="category">Coding</a>、<a href="http://0x7c00.cn/?cat=50" rel="category">Linux</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=218#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+				<p>今天修改了一个段错误的bug。 第一步  用dmesg命令查看最近的段错误。 [Mon Sep 14 15:11:50 2015] class[4200]: segfault at 0 ip 00007fcac993dbdd sp 00007fcaca4f5ac8 error 4 in libzealot.so[7fc</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=218" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+							</footer>
+	
+	</article>
+											
+<article id="post-190" class="post-190 post type-post status-publish format-standard hentry category-coding tag-mediawiki tag-57 tag-56" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=190" rel="bookmark">MediaWiki</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2015-05-29T21:03:02+00:00" pubdate itemprop="datePublished">2015-05-29</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=9" rel="category">Coding</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=190#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+				<p>打算用MediaWiki搭建一个知识库，作为个人文档库，将博客里面写的东西整理后放入wiki永久保存。博客和wiki最主要的区别是wiki更有利于存档以及以后查看，而博客比较随意，可以记录任何事情。 这篇文章主要记录MediaWiki的基本用法，觉得一篇文章够用了，所以就没有添加Wiki的分类目录。 一 链接 内部链接</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=190" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=mediawiki" rel="tag">MediaWiki</a><a href="http://0x7c00.cn/?tag=%e8%a1%a8%e6%a0%bc" rel="tag">表格</a><a href="http://0x7c00.cn/?tag=%e9%93%be%e6%8e%a5" rel="tag">链接</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-179" class="post-179 post type-post status-publish format-standard hentry category-python tag-print tag-python" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=179" rel="bookmark">列表，元组，字符串互相转换</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2015-05-29T19:43:58+00:00" pubdate itemprop="datePublished">2015-05-29</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=47" rel="category">Python</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=179#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+				<p>列表，元组，字符串之间的转化通过join(), str(), list(), tuple() 这四个函数实现。 用list可以把字符串和元组转化为列表 &gt;&gt;&gt; demo_str = &#8216;test&#8217; &gt;&gt;&gt; demo_tuple = (&#8216;t&#8217;,&#8217;e&#8217;,&#8217;s&#8217;,&#8217;t&#8217;) &gt;&gt;&#038;</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=179" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=print" rel="tag">print</a><a href="http://0x7c00.cn/?tag=python" rel="tag">python</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-88" class="post-88 post type-post status-publish format-standard hentry category-rpi-os tag-raspberry-pi tag-timer tag-28 tag-26 tag-30" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=88" rel="bookmark">Raspberry Pi Timer</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-12-25T18:07:33+00:00" pubdate itemprop="datePublished">2014-12-25</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=88#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=88"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/142175320225.jpg" itemprop="image" width="700" alt="Raspberry Pi Timer" lazyload="1" /></a>
+			<p>The Physical (hardware) base address for the system timers is 0x7E003000. 树莓派的Timer共有7个寄存器 分别是 0x0   CS       System Timer Control/Status                 32 0x4</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=88" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=raspberry-pi" rel="tag">Raspberry Pi</a><a href="http://0x7c00.cn/?tag=timer" rel="tag">Timer</a><a href="http://0x7c00.cn/?tag=%e6%97%b6%e9%92%9f" rel="tag">时钟</a><a href="http://0x7c00.cn/?tag=%e6%a0%91%e8%8e%93%e6%b4%be" rel="tag">树莓派</a><a href="http://0x7c00.cn/?tag=%e9%a2%91%e7%8e%87" rel="tag">频率</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-86" class="post-86 post type-post status-publish format-standard hentry category-rpi-os tag-gpio" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=86" rel="bookmark">Raspberry Pi GPIO</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-12-24T12:00:04+00:00" pubdate itemprop="datePublished">2014-12-24</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=86#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=86"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/s/142175364683_medium.jpg" itemprop="image" width="700" alt="Raspberry Pi GPIO" lazyload="1" /></a>
+			<p>树莓派的共有54个GPIO 这54个GPIO通过 0x7e20 0000 &#8211; 0x7e20 00b0 这41 个寄存器控制 。有用的寄存器有： 1.GPFSEL ( GPIO Function Select)    共六个GPFSEL0 &#8211; GPFSEL6，每个GPFSEL控制10个GPIO p</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=86" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=gpio" rel="tag">GPIO</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-80" class="post-80 post type-post status-publish format-standard hentry category-rpi-os tag-gpu tag-mailbox tag-33 tag-21" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=80" rel="bookmark">Raspberry Pi GPU 编程</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-12-22T10:02:17+00:00" pubdate itemprop="datePublished">2014-12-22</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=80#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=80"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/s/142175364643_medium.jpg" itemprop="image" width="700" alt="Raspberry Pi GPU 编程" lazyload="1" /></a>
+			<p>要把我的操作系统移植到Raspberry Pi 上了，所以最近一直在看ARM的东西。找来找去只找到一个有点用的 http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/   剑桥大学的一份教程，虽然离一个完整的内核还差得很远，但对我还算是有点用。之前一直担心的</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=80" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=gpu" rel="tag">GPU</a><a href="http://0x7c00.cn/?tag=mailbox" rel="tag">mailbox</a><a href="http://0x7c00.cn/?tag=%e5%9b%be%e5%83%8f" rel="tag">图像</a><a href="http://0x7c00.cn/?tag=%e6%b1%87%e7%bc%96" rel="tag">汇编</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-58" class="post-58 post type-post status-publish format-standard hentry category-rpi-os tag-ps2 tag-37 tag-36" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=58" rel="bookmark">PS2鼠标中断信号的处理</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-12-05T22:02:52+00:00" pubdate itemprop="datePublished">2014-12-05</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=58#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+				<p>键盘数据已经可以正常接收了，鼠标的处理比键盘要稍微复杂一点。鼠标每次的信号是三个字节，第一字节0-2分别保存着鼠标左键右键中键是否按下的标志。3位一直为1。根据这个特性可以判断接收到的字节是否是鼠标第一字节的信号。4 5 两位分别表示鼠标 x，y位置是否发生位移。 6 7  是 x y溢出标志位。</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=58" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=ps2" rel="tag">PS2</a><a href="http://0x7c00.cn/?tag=%e5%8d%8f%e8%ae%ae" rel="tag">协议</a><a href="http://0x7c00.cn/?tag=%e9%bc%a0%e6%a0%87" rel="tag">鼠标</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-54" class="post-54 post type-post status-publish format-standard hentry category-rpi-os tag-25 tag-24 tag-23" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=54" rel="bookmark">8259A中断控制器</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-12-02T13:24:00+00:00" pubdate itemprop="datePublished">2014-12-02</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=54#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=54"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/142175391955.jpg" itemprop="image" width="700" alt="8259A中断控制器" lazyload="1" /></a>
+			<p>8259A芯片是一个中断管理芯片，中断的来源除了来自于硬件自身的NMI中断和来自于软件的INT n指令造成的软件中断之外，还有来自于外部硬件设备的中断，这些中断是可屏蔽的。这些中断也都通过PIC(Programmable Interrupt Controller)进行控制，并传递给CPU。</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=54" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=%e4%b8%ad%e6%96%ad" rel="tag">中断</a><a href="http://0x7c00.cn/?tag=%e4%b8%ad%e6%96%ad%e6%8e%a7%e5%88%b6%e5%99%a8" rel="tag">中断控制器</a><a href="http://0x7c00.cn/?tag=%e5%af%84%e5%ad%98%e5%99%a8" rel="tag">寄存器</a></span>			</footer>
+	
+	</article>
+											
+<article id="post-36" class="post-36 post type-post status-publish format-standard hentry category-rpi-os tag-22 tag-23" itemscope itemtype="http://schema.org/BlogPosting">
+	
+	
+	
+	<header class="entry-header">
+				<h2 class="entry-title" itemprop="name headline">
+			<a href="http://0x7c00.cn/?p=36" rel="bookmark">80386寄存器（转载）</a>
+		</h2>
+		
+		<div class="entry-meta">
+			<time class="entry-date" datetime="2014-11-25T04:00:11+00:00" pubdate itemprop="datePublished">2014-11-25</time> <span class="dot">&bull;</span> <span class="categories-links" itemprop="keywords"><a href="http://0x7c00.cn/?cat=11" rel="category">Operating System</a></span> <span class="dot">&bull;</span> <a href="http://0x7c00.cn/?p=36#respond" class="comments-link" >0 条评论</a> <span class="dot">&bull;</span> <a class="author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person" rel="author" href="http://0x7c00.cn/?author=1"><span itemprop="name" class="fn">Breaker</span></a>		</div>
+	</header>
+
+		<div class="entry-summary" itemprop="articleBody">
+			<a class="entry-cover" href="http://0x7c00.cn/?p=36"><img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/142175587803.jpg" itemprop="image" width="700" alt="80386寄存器（转载）" lazyload="1" /></a>
+			<p>写这篇文章，完全是因为学习保护模式需要这些知识，读者完全可以走马观花，大致看看有什么内容，知道需要的时候来查这篇文章就可以了，完全没有必要抵抗着困意非要把这篇文章认真看完，记住里面每一个寄存器里每一位的定义，但是以后的文章如果需要，一定要记得回来查查相关的内容。 80386共提供7种类型的32位寄存器，</p>
+	</div>
+	
+		<footer class="entry-footer">
+					<a href="http://0x7c00.cn/?p=36" rel="nofollow" class="more-link">继续阅读 &raquo;</a>
+				<span class="tags-links" itemprop="keywords"><a href="http://0x7c00.cn/?tag=80386" rel="tag">80386</a><a href="http://0x7c00.cn/?tag=%e5%af%84%e5%ad%98%e5%99%a8" rel="tag">寄存器</a></span>			</footer>
+	
+	</article>
+							
+			
+	<div class="navigation">
+		<a class="loadmore" href="http://0x7c00.cn/?paged=2" >查看更多</a>				<nav class="pagination" role="navigation">
+			<span>&laquo; 上一页</span><span class="pagenum">1/2</span><a href="http://0x7c00.cn/?paged=2" >下一页 &raquo;</a>		</nav>
+			</div>
+	
+			</main>
+
+
+
+<div id="sidebar" role="complementary" itemscope itemtype="http://schema.org/WPSideBar">
+
+	<div id="sidebar-top">
+				<aside id="minty_recentposts-2" class="widget widget_minty_recentposts clearfix">		<h3 class="widget-title"><span>近期文章</span></h3>		<ul class="minty_thumblist ">
+					<li>
+				<a href="http://0x7c00.cn/?p=229">
+					<img src="http://ccwyy.img47.wal8.com/img47/507648_20150116191603/145697643883.png" itemprop="image" width="300" alt="推荐chrome插件vimium" lazyload="1" /><span>推荐chrome插件vimium</span>
+				</a>
+			</li>
+					<li>
+				<a href="http://0x7c00.cn/?p=218">
+					<span>Linux 段错误调试</span>
+				</a>
+			</li>
+					<li>
+				<a href="http://0x7c00.cn/?p=190">
+					<span>MediaWiki</span>
+				</a>
+			</li>
+					<li>
+				<a href="http://0x7c00.cn/?p=179">
+					<span>列表，元组，字符串互相转换</span>
+				</a>
+			</li>
+					<li>
+				<a href="http://0x7c00.cn/?p=88">
+					<img src="http://ccwyy.img43.wal8.com/img43/507648_20150116191603/142175320225.jpg" itemprop="image" width="300" alt="Raspberry Pi Timer" lazyload="1" /><span>Raspberry Pi Timer</span>
+				</a>
+			</li>
+				</ul>
+		</aside><aside id="minty_mailsubscription-2" class="widget widget_minty_mailsubscription clearfix"><h3 class="widget-title"><span>邮件订阅</span></h3><form action="http://list.qq.com/cgi-bin/qf_compose_send" target="_blank" method="post"><h3 class="info">订阅精彩内容</h3><input type="hidden" name="t" value="qf_booked_feedback" /><input type="hidden" name="id" value="" /><input type="email" name="to" class="rsstxt" placeholder="your@email.com" value="" required /><input type="submit" class="rssbutton" value="订阅" /></form></aside><aside id="wpcirrus" class="widget wpcirrusWidgetInit clearfix"><h3 class="widget-title"><span>Cloud </span></h3>	<script type="text/javascript">
+		var wpcirrusRadiuscirrusCloudWidget = 0;
+		var wpcirrusRefreshratecirrusCloudWidget = 0;
+		var wpcirrusFontColorcirrusCloudWidget;var wpcirrusBackgroundColorcirrusCloudWidget;	</script>
+	<div style="position: relative; height: 230px; width: 230px;"  id="cirrusCloudWidget">
+		<a href='http://0x7c00.cn/?tag=122u' class='tag-link-16' title='1个话题' style='font-size: 10pt;'>122U</a>
+<a href='http://0x7c00.cn/?tag=80386' class='tag-link-22' title='1个话题' style='font-size: 10pt;'>80386</a>
+<a href='http://0x7c00.cn/?tag=a32' class='tag-link-20' title='1个话题' style='font-size: 10pt;'>A32</a>
+<a href='http://0x7c00.cn/?tag=bochs' class='tag-link-17' title='1个话题' style='font-size: 10pt;'>Bochs</a>
+<a href='http://0x7c00.cn/?tag=gpio' class='tag-link-31' title='1个话题' style='font-size: 10pt;'>GPIO</a>
+<a href='http://0x7c00.cn/?tag=mifare1' class='tag-link-12' title='1个话题' style='font-size: 10pt;'>Mifare1</a>
+<a href='http://0x7c00.cn/?tag=qemu' class='tag-link-18' title='1个话题' style='font-size: 10pt;'>qemu</a>
+<a href='http://0x7c00.cn/?tag=raspberry-pi' class='tag-link-27' title='1个话题' style='font-size: 10pt;'>Raspberry Pi</a>
+<a href='http://0x7c00.cn/?tag=rfid' class='tag-link-13' title='1个话题' style='font-size: 10pt;'>RFID</a>
+<a href='http://0x7c00.cn/?tag=timer' class='tag-link-29' title='1个话题' style='font-size: 10pt;'>Timer</a>
+<a href='http://0x7c00.cn/?tag=%e4%b8%ad%e6%96%ad' class='tag-link-25' title='1个话题' style='font-size: 10pt;'>中断</a>
+<a href='http://0x7c00.cn/?tag=%e4%b8%ad%e6%96%ad%e6%8e%a7%e5%88%b6%e5%99%a8' class='tag-link-24' title='1个话题' style='font-size: 10pt;'>中断控制器</a>
+<a href='http://0x7c00.cn/?tag=%e5%af%84%e5%ad%98%e5%99%a8' class='tag-link-23' title='2个话题' style='font-size: 20pt;'>寄存器</a>
+<a href='http://0x7c00.cn/?tag=%e6%97%b6%e9%92%9f' class='tag-link-28' title='1个话题' style='font-size: 10pt;'>时钟</a>
+<a href='http://0x7c00.cn/?tag=%e6%a0%91%e8%8e%93%e6%b4%be' class='tag-link-26' title='1个话题' style='font-size: 10pt;'>树莓派</a>
+<a href='http://0x7c00.cn/?tag=%e6%a8%a1%e6%8b%9f%e5%99%a8' class='tag-link-19' title='1个话题' style='font-size: 10pt;'>模拟器</a>
+<a href='http://0x7c00.cn/?tag=%e6%b1%87%e7%bc%96' class='tag-link-21' title='2个话题' style='font-size: 20pt;'>汇编</a>
+<a href='http://0x7c00.cn/?tag=%e7%83%ad%e6%b0%b4%e5%8d%a1' class='tag-link-15' title='1个话题' style='font-size: 10pt;'>热水卡</a>
+<a href='http://0x7c00.cn/?tag=%e7%a0%b4%e8%a7%a3' class='tag-link-14' title='1个话题' style='font-size: 10pt;'>破解</a>
+<a href='http://0x7c00.cn/?tag=%e9%a2%91%e7%8e%87' class='tag-link-30' title='1个话题' style='font-size: 10pt;'>频率</a><a href='http://0x7c00.cn/?cat=9' class='tag-link-9' title='2个话题' style='font-size: 15.333333333333pt;'>Coding</a>
+<a href='http://0x7c00.cn/?cat=7' class='tag-link-7' title='2个话题' style='font-size: 15.333333333333pt;'>Hacking</a>
+<a href='http://0x7c00.cn/?cat=50' class='tag-link-50' title='1个话题' style='font-size: 13.333333333333pt;'>Linux</a>
+<a href='http://0x7c00.cn/?cat=11' class='tag-link-11' title='7个话题' style='font-size: 20pt;'>Operating System</a>
+<a href='http://0x7c00.cn/?cat=10' class='tag-link-10' title='1个话题' style='font-size: 13.333333333333pt;'>Other</a>
+<a href='http://0x7c00.cn/?cat=8' class='tag-link-8' title='0个话题' style='font-size: 10pt;'>Project</a>
+<a href='http://0x7c00.cn/?cat=47' class='tag-link-47' title='1个话题' style='font-size: 13.333333333333pt;'>Python</a> 	</div>
+	</aside>	</div>
+
+	<div id="sidebar-bottom">
+		<aside id="minty_randomlinks-2" class="widget widget_links clearfix"><h3 class="widget-title"><span>友情链接</span></h3><ul class="xoxo blogroll"><li><a href="http://www.0x7c00.cn" rel="me" target="_blank">主站</a></li>
+<li><a href="http://www.cnblogs.com/rootuser" target="_blank">奋斗的蜗牛&#039;s</a></li>
+<li><a href="http://www.leesec.com" target="_blank">leesec</a></li>
+<li><a href="http://www.sinkland.cn/" target="_blank">沉默大陆</a></li>
+<li><a href="http://blog.ookcode.com/" rel="friend" target="_blank">Vincent Yao</a></li>
+<li><a href="http://segmentfault.com/blog/wzhvictor" target="_blank">Geek情怀</a></li>
+<li><a href="http://shumeipai.nxez.com/" target="_blank">树莓派实验室</a></li>
+<li><a href="http://eyrefree.org/" target="_blank">荏苒。</a></li>
+<li><a href="http://young-py.github.io/" rel="friend" target="_blank">小乌龟 の blog</a></li>
+</ul></aside>	</div>
+
+</div>
+
+
+ 			</div>
+
+	<footer id="footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
+		<nav class="links">
+					</nav>
+		<div class="copyright">
+			&copy; 2016 <a href="http://0x7c00.cn/">Breaker&#039;s Blog</a> &middot; Powered by <a href="http://wordpress.org/" target="_blank" rel="generator">WordPress</a> &middot; Theme by <a href="http://c7sky.com/" target="_blank">小影</a> · 陕ICP备15000407号<div class="stat"></div>		</div>
+		<a id="rocket" href="#top" title="返回顶部"><i></i></a>
+	</footer>
+
+
+<script>var MINTY = {"ajaxurl":"http:\/\/0x7c00.cn\/wp-admin\/admin-ajax.php","lazyload":"1","stickySidebar":"bottom","keyboardNavigation":"1","infiniteScroll":"0","slidesTimeout":"4000","hasGallery":false}</script>
+
+
+<script type='text/javascript' src='http://0x7c00.cn/wp-content/themes/minty/js/vendor/nprogress.min.js?ver=0.1.3'></script>
+<script type='text/javascript' src='http://0x7c00.cn/wp-content/themes/minty/js/vendor/jquery.lazyload.min.js?ver=1.9.3'></script>
+<script type='text/javascript' src='http://0x7c00.cn/wp-content/themes/minty/js/script.js?ver=2.1'></script>
+<script type='text/javascript' src='http://0x7c00.cn/wp-includes/js/wp-embed.min.js?ver=4.4.2'></script>
+
+</body>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f13acbca337373aab184fc0efec08ce9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</html>
