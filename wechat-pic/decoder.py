@@ -11,7 +11,7 @@ out_path = "out.bmp"
 
 def get_ofile(ifile, output):
     basename = os.path.basename(ifile)
-    tmp_file = "out_" + basename
+    tmp_file = "out_" + os.path.splitext(basename)[0] + ".jpg"
     return os.path.join(output, tmp_file)
 
 def parse_file(input, output):
@@ -29,9 +29,8 @@ def parse_file(input, output):
     if os.path.isdir(input):
         for i in os.listdir(input):
             if os.path.isfile(os.path.join(input, i)):
-                decoder(os.path.join(input, i), get_ofile((os.path.join(input, i), output )
+                decoder(os.path.join(input, i), get_ofile(os.path.join(input, i), output ))
     else:
-        ofile = "out.jpg"
         decoder(input, get_ofile(input, output))
 
 
