@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-from   lxml import etree
-import shutil
 import sys
-import re
 import os
 import argparse
-import subprocess
 import scapy.all
-import dpkt
 
 def makeQuadruple(pcapDir, outDir):
     count = 0
