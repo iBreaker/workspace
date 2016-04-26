@@ -25,9 +25,10 @@ def makeQuadruple(pcapDir, outDir):
             ip1, ip2 = ip2, ip1
             port1, port2 = port2, port1
         quadruple = ('UDP', ip1, port1, ip2, port2)
-        dic[quadruple] = outDir + '/' + "UDP-" + ip1 + ":" + str(port1) + "-" + ip2 + ":" + str(port2) + ".pcap"
+        filepath, filename = GetPath2(quadruple, outDir)
+        dic[quadruple] = outDir + '/' + filepath + "/" + filename  + ".pcap"
         count = count + 1
-        print dic[quadruple]
+        #print dic[quadruple]
 
     #print dic
     result = os.popen("tshark -r " + pcapDir + " -R \"tcp\" -Tfields -e ip.addr -e tcp.port")
@@ -48,13 +49,80 @@ def makeQuadruple(pcapDir, outDir):
             ip1, ip2 = ip2, ip1
             port1, port2 = port2, port1
         quadruple = ('TCP', ip1, port1, ip2, port2)
-        dic[quadruple] = outDir + '/' + "TCP-" + ip1 + ":" + str(port1) + "-" + ip2 + ":" + str(port2) + ".pcap"
+        filepath, filename = GetPath2(quadruple, outDir)
+        dic[quadruple] = outDir + '/' + filepath + "/" + filename  + ".pcap"
         count = count + 1
-        print dic[quadruple]
+        #print dic[quadruple]
     return dic
+
+path = set()
+
+def GetPath(quadruple, outPcapdir):
+    cmd = 'grep "' + str(quadruple[0]) + "#" + str(quadruple[1]) + "#" + str(quadruple[2]) + "#" +  str(quadruple[3]) + "#" + str(quadruple[4]) + '" db.txt'
+    result = os.popen(cmd)
+    result = result.readline()
+    
+    result = result.split("#")
+    try:
+        filename = result[5]
+        if "/" in filename:
+            filename = filename.replace("/", "\\")
+        filepath = result[6]
+    except:
+        filepath = "etc" 
+        filename = quadruple[0] + "-" + str(quadruple[1]) + ":" + str(quadruple[2]) + "-" + str(quadruple[3]) + ":" + str(quadruple[3]) 
+        print "error", result
+    if filepath not in path:
+        try:
+            os.makedirs('./' + outPcapdir + "/" + filepath)
+            print "mkdir"
+        except:
+            print "dir is exists"
+            pass
+        path.add(filepath)
+
+    
+    #print cmd
+    #print filepath, "|", filename
+    return filepath, filename
+
+db = dict()
+def ReadDB():
+    f = open("db.txt", "r")
+    for i in f:
+        i = i.split("#")
+        quadruple = (i[0], i[1], int(i[2]), i[3], int(i[4]))
+        if "/" in i[5]:
+            i[5] = i[5].replace("/", '\\')
+        db[quadruple] = [i[5], i[6]]
+        
+
+def GetPath2(quadruple, outPcapdir):
+
+    if db.has_key(quadruple):
+        filepath = db[quadruple][1]
+        filename = db[quadruple][0]
+    else:
+        print quadruple, "不在文件中"
+        filepath = "etc"
+        filename = quadruple[0] + "-" + str(quadruple[1]) + ":" + str(quadruple[2]) + "-" + str(quadruple[3]) + ":" + str(quadruple[3]) 
+    
+    if filepath not in path:
+        try:
+            os.makedirs('./' + outPcapdir + "/" + filepath)
+            print "mkdir"
+        except:
+            print "dir is exists"
+            pass
+        path.add(filepath)
+
+    return filepath, filename 
+
+    pass
 
         
 class SplitWorker(object):
+    
     def __init__(self,pcapName,outPcapdir):
         self.pcapName = pcapName
         self.outPcapdir = outPcapdir
@@ -63,7 +131,8 @@ class SplitWorker(object):
         
     def run(self):
         currdir = os.curdir
-
+        ReadDB()
+        #print db
         self.tupleDict = makeQuadruple(self.pcapName, self.outPcapdir)         # 生成四元组
         self.splitePcap(self.pcapName,self.outPcapdir)       # 分割pcap
         
@@ -73,8 +142,8 @@ class SplitWorker(object):
         #print "helloworkd",self.tupleDict
         the_result_writer={}
         self.tupleNameDict = self.tupleDict
-        print "helloworld",self.tupleNameDict
-        print "begin"
+        #print "helloworld",self.tupleNameDict
+        #print "begin"
         
         aReader = scapy.utils.PcapReader(pcapName)
         #for pkt in scapy.utils.PcapReader(pcapName):

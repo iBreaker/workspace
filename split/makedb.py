@@ -18,7 +18,9 @@ class makedb(object):
     def Readxlsx(self):
 
         data = xlrd.open_workbook(self.path)
+        index = -1
         for table in data.sheets():
+            index += 1 
             for i in range(table.nrows):
                 try:
                     name = ""
@@ -46,13 +48,17 @@ class makedb(object):
                             session.append(ip2)
                             session.append(port2)
                             session.append(name)
-                            session.append(self.Classifi(session))
+                            classifiName = self.Classifi(session) 
+                            session.append(classifiName)
+                            
+                            print "add:sheet:", index, "line:", i + 1, "|" + classifiName + "|", name
                             self.data.append(session)
                             #print "\n"
                             #print ips
                             #print session
                 except:
-                    print "error", i
+                    #print "error: sheet:", index, " line:", i + 1
+                    pass
 
 
 
@@ -61,7 +67,7 @@ class makedb(object):
                 #    print row
                     
 
-        print len(data.sheets())
+        #print len(data.sheets())
 
 
     def Classifi(self, session):
@@ -69,6 +75,8 @@ class makedb(object):
         try:
             result = os.popen(cmd)
             string = result.read()
+            if string == "":
+                return "etc"
             string = string.split("/")[-1]
             string = string.split(".")[0]
         except:
@@ -83,18 +91,30 @@ class makedb(object):
             sys.exit(1)
 
         self.Readxlsx()
+        print "total", len(self.data)
         self.WritetoFile()
         pass
     
     def WritetoFile(self):
+        self.data = sorted(self.data, key=lambda list:list[5])
         f = open("db.txt", "w")
 
+        lastname = ""
+        order = 1
         for session in self.data:
-            for i in session:
-                f.write(i + "#")
+            for i in range(7):
+                if 5 == i :
+                    if lastname == session[5]:
+                        f.write(session[i] + str(order) + "#")
+                        order += 1
+                    else:
+                        order = 1
+                        f.write(session[i] + "#")
+                else:
+                    f.write(session[i] + "#")
             f.write("\n")
             #print session
-            pass
+            lastname = session[5]
         
         f.close()
 
