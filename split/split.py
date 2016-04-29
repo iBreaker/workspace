@@ -105,7 +105,7 @@ def GetPath2(quadruple, outPcapdir):
     else:
         print quadruple, "不在文件中"
         filepath = "etc"
-        filename = quadruple[0] + "-" + str(quadruple[1]) + ":" + str(quadruple[2]) + "-" + str(quadruple[3]) + ":" + str(quadruple[3]) 
+        filename = quadruple[0] + "-" + str(quadruple[1]) + ":" + str(quadruple[2]) + "-" + str(quadruple[3]) + ":" + str(quadruple[4]) 
     
     if filepath not in path:
         try:
