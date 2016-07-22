@@ -54,7 +54,15 @@ class Client(object):
         page = self.request('POST', url, data=post_data)
         if(page.read() == '{"data":[],"hasError":false,"code":200,"msg":"OK"}'):
             return True
-        else
+        else:
+            return False
+
+    def getOrder(self):
+        url = "http://" + self.domain + "/" + "/v/sendorder.htm"
+        page = self.request('POST', url)
+        if(page.read() == '{"code":200,"msg":"OK."}'):
+            return True
+        else:
             return False
 
 
@@ -62,7 +70,7 @@ if __name__ == "__main__":
     client = Client()
     client.login("18510343389", "guahaowwc110")
     client.request("GET", "http://www.bjguahao.gov.cn/index.htm")
-    print client.request("GET", "http://www.bjguahao.gov.cn/u/index.htm").read()
+    #print client.getOrder() 
     pass
 
 
