@@ -65,11 +65,18 @@ class Client(object):
         else:
             return False
 
+    def getDutySourceId(self):
+        url = "http://" + self.domain + "/dpt/partduty.htm"
+        post_data = dict(hospitalId=142, departmentId='200039602', dutyCode=2, dutyDate='2016-07-29', isAjax='true')
+        page = self.request('POST', url, post_data)
+        print page.read()
+         
 
 if __name__ == "__main__":
     client = Client()
     client.login("18510343389", "guahaowwc110")
     client.request("GET", "http://www.bjguahao.gov.cn/index.htm")
+    client.getDutySourceId()
     #print client.getOrder() 
     pass
 
