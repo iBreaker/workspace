@@ -74,7 +74,7 @@ class Client(object):
 
 if __name__ == "__main__":
     client = Client()
-    client.login("18510343389", "guahaowwc110")
+    client.login("", "")
     client.request("GET", "http://www.bjguahao.gov.cn/index.htm")
     client.getDutySourceId()
     #print client.getOrder() 
