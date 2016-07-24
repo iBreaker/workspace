@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 #coding:utf-8
 
+import sys
 import urllib
 import urllib2
 import cookielib
 import json
+import time
 
 USER_AGENT = (
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) '
@@ -68,6 +70,7 @@ class Client(object):
 
     def getDutySourceId(self, json_result):
         
+        #print json_result
         s = json.loads(json_result)
         for i in s["data"]:
             if '7' in i["doctorTitleName"] and u'膝' in i["skill"] and u'伤' in i["skill"]:
@@ -81,18 +84,38 @@ class Client(object):
 	#post_data = dict(hospitalId=142, departmentId='200039602', dutyCode=2, dutyDate='2016-08-01', isAjax='true')
         post_data = dict(hospitalId=hospitalId, departmentId=departmentId, dutyCode=dutyCode, dutyDate=dutyDate, isAjax='true')
         page = self.request('POST', url, post_data)
-        sourceId = self.getDutySourceId(page.read())
+        htm =  page.read()
+        if htm == '{"data":[],"hasError":false,"code":200,"msg":"OK"}':
+            return False
+        sourceId = self.getDutySourceId(htm)
         #return "http://www.bjguahao.gov.cn/order/confirm/" + str(hospitalId) + '-' + str(departmentId) + '-' + sourceId[1] + '-' + sourceId[0] + ".htm"
-        return "http://www.bjguahao.gov.cn/order/confirm/" + str(hospitalId) + '-' + str(departmentId) + '-' + str(sourceId[1]) + '-' + str(sourceId[0]) + ".html"
+        url =  "http://www.bjguahao.gov.cn/order/confirm/" + str(hospitalId) + '-' + str(departmentId) + '-' + str(sourceId[1]) + '-' + str(sourceId[0]) + ".html"
+	return [str(hospitalId), str(departmentId), str(sourceId[1]), str(sourceId[0]), url]
 
-
-
-
+    def guahao(self, msg, patientId, smsVerifyCode):
+        url = "http://" + self.domain + "/order/confirm.htm"
+        post_data = dict(dutySourceId=msg[3], hospitalId=msg[0], departmentId=msg[1], doctorId=msg[2], patientId=patientId, hospitalCardId='', medicareCardId='', reimbursementType=1, smsVerifyCode=smsVerifyCode, isFirstTime=2, hasPowerHospitalCard=2, cidType=1, childrenBirthday='',childrenGender=2, isAjax='true')
+        page = self.request('POST', url, post_data)
+        print page.read()
+        
 if __name__ == "__main__":
     client = Client()
-    client.login("", "")
-    url = client.makeUrl(142, 200039602, '2016-07-25', 2 )
-   
+    if client.login("", "") != True:
+        print "login error"
+        exit(0)
+    else:
+        print "login success"
+    #msg = client.makeUrl(142, 200039602, '2016-07-28', 2 )
+    print "begin get doctor msg"
+    i = 0
+    while True:
+        msg = client.makeUrl(208, 200003296, '2016-07-29', 2 )
+        if msg != False:
+            break
+        print "retry %s times"%i
+        i+=1
+        time.sleep(0.3)
+    client.guahao(msg, 222444072,int(sys.argv[1]))
     #print client.getOrder() 
     pass
 
