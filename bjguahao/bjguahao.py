@@ -4,6 +4,7 @@
 import urllib
 import urllib2
 import cookielib
+import json
 
 USER_AGENT = (
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) '
@@ -65,18 +66,33 @@ class Client(object):
         else:
             return False
 
-    def getDutySourceId(self):
+    def getDutySourceId(self, json_result):
+        
+        s = json.loads(json_result)
+        for i in s["data"]:
+            if '7' in i["doctorTitleName"] and u'膝' in i["skill"] and u'伤' in i["skill"]:
+                #print [i["dutySourceId"], i["doctorId"]]
+                return [i["dutySourceId"], i["doctorId"]]
+        #print s["data"][0]["dutySourceId"]
+        return [s["data"][0]["dutySourceId"], s["data"][0]["doctorId"]]
+
+    def makeUrl(self, hospitalId, departmentId, dutyDate, dutyCode):
         url = "http://" + self.domain + "/dpt/partduty.htm"
-        post_data = dict(hospitalId=142, departmentId='200039602', dutyCode=2, dutyDate='2016-07-29', isAjax='true')
+	#post_data = dict(hospitalId=142, departmentId='200039602', dutyCode=2, dutyDate='2016-08-01', isAjax='true')
+        post_data = dict(hospitalId=hospitalId, departmentId=departmentId, dutyCode=dutyCode, dutyDate=dutyDate, isAjax='true')
         page = self.request('POST', url, post_data)
-        print page.read()
-         
+        sourceId = self.getDutySourceId(page.read())
+        #return "http://www.bjguahao.gov.cn/order/confirm/" + str(hospitalId) + '-' + str(departmentId) + '-' + sourceId[1] + '-' + sourceId[0] + ".htm"
+        return "http://www.bjguahao.gov.cn/order/confirm/" + str(hospitalId) + '-' + str(departmentId) + '-' + str(sourceId[1]) + '-' + str(sourceId[0]) + ".html"
+
+
+
 
 if __name__ == "__main__":
     client = Client()
     client.login("", "")
-    client.request("GET", "http://www.bjguahao.gov.cn/index.htm")
-    client.getDutySourceId()
+    url = client.makeUrl(142, 200039602, '2016-07-25', 2 )
+   
     #print client.getOrder() 
     pass
 
