@@ -83,7 +83,11 @@ class Client(object):
         url = "http://" + self.domain + "/dpt/partduty.htm"
 	#post_data = dict(hospitalId=142, departmentId='200039602', dutyCode=2, dutyDate='2016-08-01', isAjax='true')
         post_data = dict(hospitalId=hospitalId, departmentId=departmentId, dutyCode=dutyCode, dutyDate=dutyDate, isAjax='true')
-        page = self.request('POST', url, post_data)
+        try:
+            page = self.request('POST', url, post_data)
+        except:
+            print "403"
+            return False
         htm =  page.read()
         if htm == '{"data":[],"hasError":false,"code":200,"msg":"OK"}':
             return False
@@ -109,7 +113,8 @@ if __name__ == "__main__":
     print "begin get doctor msg"
     i = 0
     while True:
-        msg = client.makeUrl(208, 200003296, '2016-07-29', 2 )
+        #msg = client.makeUrl(208, 200003296, '2016-08-01', 2 )
+        msg = client.makeUrl(142, 200039602, '2016-08-02', 2 )
         if msg != False:
             break
         print "retry %s times"%i
