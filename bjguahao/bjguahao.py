@@ -16,6 +16,7 @@ USER_AGENT = (
 
 class APIError(Exception):
     pass
+
 class MergeRequest(object):
     DEFAULT_TITLE = 'Merge Request'
     DEFAULT_CONTENT = ''
@@ -77,7 +78,10 @@ class Client(object):
                 #print [i["dutySourceId"], i["doctorId"]]
                 return [i["dutySourceId"], i["doctorId"]]
         #print s["data"][0]["dutySourceId"]
-        return [s["data"][0]["dutySourceId"], s["data"][0]["doctorId"]]
+        try:
+            return [s["data"][1]["dutySourceId"], s["data"][1]["doctorId"]]
+        except:
+            return [s["data"][0]["dutySourceId"], s["data"][0]["doctorId"]]
 
     def makeUrl(self, hospitalId, departmentId, dutyDate, dutyCode):
         url = "http://" + self.domain + "/dpt/partduty.htm"
@@ -100,7 +104,7 @@ class Client(object):
         url = "http://" + self.domain + "/order/confirm.htm"
         post_data = dict(dutySourceId=msg[3], hospitalId=msg[0], departmentId=msg[1], doctorId=msg[2], patientId=patientId, hospitalCardId='', medicareCardId='', reimbursementType=1, smsVerifyCode=smsVerifyCode, isFirstTime=2, hasPowerHospitalCard=2, cidType=1, childrenBirthday='',childrenGender=2, isAjax='true')
         page = self.request('POST', url, post_data)
-        print page.read()
+        return page.read()
         
 if __name__ == "__main__":
     client = Client()
@@ -120,7 +124,13 @@ if __name__ == "__main__":
         print "retry %s times"%i
         i+=1
         time.sleep(0.3)
-    client.guahao(msg, 222444072,int(sys.argv[1]))
+    
+    result = client.guahao(msg, 222444072,int(sys.argv[1]))
+    print result
+    if "验证码" in result:
+        client.getOrder()
+        code = raw_input("input: ")
+        print client.guahao(msg, 222444072, int(code))
     #print client.getOrder() 
     pass
 
